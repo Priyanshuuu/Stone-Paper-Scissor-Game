@@ -86,25 +86,6 @@ class MyGame(arcade.Window):
         # Pre-load the animation frames. We don't do this in the __init__
         # of the explosion sprite because it
         # takes too long and would cause the game to pause.
-        self.explosion_texture_list = []
-
-        # for i in range(EXPLOSION_TEXTURE_COUNT):
-        #     # Files from http://www.explosiongenerator.com are numbered sequentially.
-        #     # This code loads all of the explosion0000.png to explosion0270.png files
-        #     # that are part of this explosion.
-        #     texture_name = f'images/target.png'
-        #     # value = arcade.load_texture(texture_name, SPRITE_SCALING_TARGET)
-        #     # value.center_x = SCREEN_WIDTH -50
-        #     # value.center_y =  SCREEN_HEIGHT -50
-
-        #     self.explosion_texture_list.append(arcade.load_texture(texture_name,0.5))
-
-        # # # Load sounds. Sounds from kenney.nl
-        # # self.gun_sound = arcade.sound.load_sound("sounds/laser1.wav")
-        # # self.hit_sound = arcade.sound.load_sound("sounds/phaseJump1.wav")
-
-        # arcade.set_background_color(arcade.color.LIGHT_BLUE)
-
     def setup(self):
 
         """ Set up the game and initialize the variables. """
