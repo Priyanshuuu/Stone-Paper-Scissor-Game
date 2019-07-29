@@ -1,17 +1,7 @@
-"""
-Sprite Explosion
-
-Simple program to show basic sprite usage.
-
-Artwork from http://kenney.nl
-Explosion graphics from http://www.explosiongenerator.com/
-
-If Python and Arcade are installed, this example can be run from the command line with:
-python -m arcade.examples.sprite_explosion
-"""
 import random
 import arcade
 import os
+import time
 
 SPRITE_SCALING_PLAYER = 0.15
 SPRITE_SCALING_COIN = 0.1
@@ -86,6 +76,8 @@ class MyGame(arcade.Window):
         # Pre-load the animation frames. We don't do this in the __init__
         # of the explosion sprite because it
         # takes too long and would cause the game to pause.
+        self.explosion_texture_list = []
+
     def setup(self):
 
         """ Set up the game and initialize the variables. """
@@ -141,7 +133,6 @@ class MyGame(arcade.Window):
 
         # This command has to happen before we start drawing
         arcade.start_render()
-
         # Draw all the sprites.
         
         arcade.draw_rectangle_filled(400, 500 , 800, 300, arcade.color.YELLOW)
@@ -151,15 +142,30 @@ class MyGame(arcade.Window):
         self.bullet_list.draw()
         self.player_list.draw()
         self.explosions_list.draw()
-
-
         # Render the text
+        arcade.draw_text(f"Developer - Priyanshu Pandey", 10, 570, arcade.color.BLACK, 18)
         arcade.draw_text(f"Stone   |   Scissor   |   Paper", 300, 330, arcade.color.BLACK, 18)
-        arcade.draw_text(f"Your Score: {self.score}", 10, 20, arcade.color.BLACK, 14)
-        arcade.draw_text(f"CPU Score: {self.cpu_score}", SCREEN_WIDTH-100, 20, arcade.color.BLACK, 14)
+        arcade.draw_text(f"Your Score: {self.score}", 10, 420, arcade.color.BLACK, 14)
+        arcade.draw_text(f"CPU Score: {self.cpu_score}", SCREEN_WIDTH-100, 420, arcade.color.BLACK, 14)
         arcade.draw_text(f"Draws: {self.DRAW}", SCREEN_WIDTH-450, 20, arcade.color.BLACK, 14)
         
-        if self.turn == 5:
+        if self.turn ==10:
+            arcade.draw_rectangle_filled(400, 300, 800, 600, arcade.color.WHITE)
+            arcade.draw_rectangle_filled(400, 300, 400, 300, arcade.color.BLACK)
+            if self.score>self.cpu_score:
+                arcade.draw_text(f"Your Score: {self.score}", 10, 300, arcade.color.BLACK, 18)
+                arcade.draw_text(f"CPU Score: {self.cpu_score}", SCREEN_WIDTH-120, 300, arcade.color.BLACK, 18)
+                arcade.draw_text(f"You WON! :D", 310, 300, arcade.color.WHITE, 30)
+            elif self.score<self.cpu_score:
+                arcade.draw_text(f"Your Score: {self.score}", 10, 300, arcade.color.BLACK, 18)
+                arcade.draw_text(f"CPU Score: {self.cpu_score}", SCREEN_WIDTH-120, 300, arcade.color.BLACK, 18)
+                arcade.draw_text(f"You LOSE :(",310, 300, arcade.color.WHITE, 30)
+            else:
+                arcade.draw_text(f"Your Score: {self.score}", 10, 300, arcade.color.BLACK, 18)
+                arcade.draw_text(f"CPU Score: {self.cpu_score}", SCREEN_WIDTH-120, 300, arcade.color.BLACK, 18)
+                arcade.draw_text(f"DRAW! :)",310, 300, arcade.color.WHITE, 30)
+
+        if self.turn ==11:
             arcade.close_window()
         
     def on_mouse_motion(self, x, y, dx, dy):
@@ -172,10 +178,6 @@ class MyGame(arcade.Window):
         """
         Called whenever the mouse button is clicked.
         """
-
-        # Gunshot sound
-        # arcade.sound.play_sound(self.gun_sound)
-
         # Create a bullet
         bullet = arcade.Sprite("images/arrow.png", SPRITE_SCALING_LASER)
 
@@ -244,19 +246,15 @@ class MyGame(arcade.Window):
                         self.score += 1
                     else:
                         self.DRAW += 1
-                # Hit Sound
-                # arcade.sound.play_sound(self.hit_sound)
 
             # If the bullet flies off-screen, remove it.
             if bullet.bottom > SCREEN_HEIGHT:
                 bullet.kill()
 
-
 def main():
     window = MyGame()
     window.setup()
     arcade.run()
-
 
 if __name__ == "__main__":
     main()
