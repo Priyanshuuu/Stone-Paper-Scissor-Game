@@ -6,7 +6,7 @@ It is a hand game usually played between two people, in which each player simult
 
 ### Required packages which needs to be pre-installed in your system. 
 
-# Name                    Version                   Build  Channel
+### Name                    Version                   Build  Channel
 ```
 arcade                    2.0.9                     <pip>
 ca-certificates           2019.5.15                     0
